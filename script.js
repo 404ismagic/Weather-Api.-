@@ -10,9 +10,47 @@ let historyContainer = document.getElementById("history");
 function addToHistory () {
     // to be completed
 }
+function displayCurrentWeather(city, data) {
+    let date = dayjs.format ('M/D/YYYY');
+    let temp = data.main.temp;
+    let wind = data.wind.speed;
+    let hum = data.main.humidity;
+    let icon = `https://openweathermap.org/imag/w/${data.weather[0].icon}.png`;
+    let descr = data.weather[0].description || data[0].main; 
 
+    let cardDiv = document.createElement('div');
+    let cardBody = document.createElement('div');
+    let heading2 = document.createElement('h2');
+    let weatherIcon = document.createElement('img');
+    let tempT = document.createElement('p');
+    let windT = document.createElement('p');
+    let humT = document.createElement('p');
+
+    cardDiv.setAttribute('class', 'card');
+    cardBody.setAttribute('class', 'card-body');
+    cardDiv.append(cardBody);
+
+    heading2.setAttribute('class', 'h3 card-title');
+    tempT.setAttribute('class', 'card-text');
+    windT.setAttribute('class', 'card-text');
+
+    heading2.textContent = `${city} (${date})`;
+    weatherIcon.setAttribute('src', icon);
+    weatherIcon.setAttribute('alt', descr);
+    weeatherIcon.setAttribute('class','weather-img');
+    heading2.append(weatherIcon);
+    tempT.textContent = `Temp:  ${temp} F`;
+    windT.textContent = `Wind:  ${wind} MPH`;
+    humT.textContent = `Humidity:  ${hum} %`
+    cardBody.append(heading2, tempT, windT, humT);
+
+    currentContainer.innerHTML =  '';
+    currentContainer.append(cardDiv)
+    
+}
 function displayWeather(city,  data) {
   // to be completed
+  displayCurrentWeather(city, data.list[0]);
 }
 function getWeatherUsingApi (city,data) {
     // to be completed
