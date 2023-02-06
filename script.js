@@ -50,6 +50,43 @@ function displayCurrentWeather(city, data) {
 }
 function displayWeatherCard(data) {
     console.log(" displayWeatherCard");
+
+    let url = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+    let desc = data.weather[0].description;
+    let tempF = data.main.temp;
+    let hum = data.main.hum;
+    let wind = data.wind.speed;
+
+    let newDiv = document.createElement('div');
+    let newCard = document.createElement('div');
+    let newCardBody = document.createElement('div');
+    let newTitle = document.createElement('h4');
+    let newIcon = document.createElement('img');
+    let newTemp = document.createElement('p');
+    let newWind = document.createElement('p');
+    let newHum = document.createElement ('p');
+
+    newDiv.append(newCard);
+    newCard.append(newCardBody);
+    newCardBody.append(newTitle, newIcon, newTemp, newWind, newHum);
+
+    newDiv.setAttribute('class', 'col-md');
+    newDiv.classList.add('five-day-card');
+    newCard.setAttribute('class', 'card bg-primary h-100 text-white');
+    newCardBody.setAttribute('class', 'card-body p-3');
+    newTitle.setAttribute('class', 'card-title');
+    newTemp.setAttribute('class', 'card-text');
+    newWind.setAttribute('class', 'card-text');
+    newHum.setAttribute('class','card-text');
+
+    newTitle.textContent = dayjs(data.dt_txt).format('M/D/YYYY');
+    newIcon.setAttribute('src', url);
+    newIcon.setAttribute('alt', desc);
+    newTemp.textContent = `Temp:${tempF} deg F`;
+    newWind. textContent = `Wind: ${wind} MPH`;
+    newHum .textContent = `Humidity: ${hum} %`;
+
+    fiveDayContainer.append(newDiv);
 }
 function displayFiveDayForecast(city, data, timezone) {
     let start= dayjs().add(1, 'day').startOf('day').unix();
