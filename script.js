@@ -11,11 +11,11 @@ function addToHistory () {
     // to be completed
 }
 function displayCurrentWeather(city, data) {
-    let date = dayjs.format ('M/D/YYYY');
+    let date = dayjs().format ('M/D/YYYY');
     let temp = data.main.temp;
     let wind = data.wind.speed;
     let hum = data.main.humidity;
-    let icon = `https://openweathermap.org/imag/w/${data.weather[0].icon}.png`;
+    let icon = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
     let descr = data.weather[0].description || data[0].main; 
 
     let cardDiv = document.createElement('div');
@@ -37,7 +37,7 @@ function displayCurrentWeather(city, data) {
     heading2.textContent = `${city} (${date})`;
     weatherIcon.setAttribute('src', icon);
     weatherIcon.setAttribute('alt', descr);
-    weeatherIcon.setAttribute('class','weather-img');
+    weatherIcon.setAttribute('class','weather-img');
     heading2.append(weatherIcon);
     tempT.textContent = `Temp:  ${temp} F`;
     windT.textContent = `Wind:  ${wind} MPH`;
@@ -48,9 +48,24 @@ function displayCurrentWeather(city, data) {
     currentContainer.append(cardDiv)
     
 }
+function displayFiveDayForecast(city, data, timezone) {
+    let start= dayjs().add(1, 'day').startOf('day').unix();
+    let end = dayjs().add(6,'day').startOf('day').unix();
+
+    let headC = document.createElement('div');
+    let head = document.createElement('h3');
+
+    headC.setAttribute('class', 'col-md-12');
+    head.textContent = 'Five Day Forecast'
+    headC.append(head);
+
+    fiveDayContainer.innerHTML = '';
+    fiveDayContainer.append(headC);
+}
 function displayWeather(city,  data) {
   // to be completed
   displayCurrentWeather(city, data.list[0]);
+  displayFiveDayForecast(city, data.list, data.city.timezone);
 }
 function getWeatherUsingApi (city,data) {
     // to be completed
