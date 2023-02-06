@@ -48,6 +48,9 @@ function displayCurrentWeather(city, data) {
     currentContainer.append(cardDiv)
     
 }
+function displayWeatherCard(data) {
+    console.log(" displayWeatherCard");
+}
 function displayFiveDayForecast(city, data, timezone) {
     let start= dayjs().add(1, 'day').startOf('day').unix();
     let end = dayjs().add(6,'day').startOf('day').unix();
@@ -61,6 +64,14 @@ function displayFiveDayForecast(city, data, timezone) {
 
     fiveDayContainer.innerHTML = '';
     fiveDayContainer.append(headC);
+
+    for ( let i =0;   i <data.length; i++) {
+        if (data[i].dt >= start && data[i].dt<end) {
+            if (data[i].dt_txt.slice(11,13) == '12') {
+                displayWeatherCard(data[i]);
+            }
+        }
+    }
 }
 function displayWeather(city,  data) {
   // to be completed
